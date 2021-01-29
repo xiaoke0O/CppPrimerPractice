@@ -94,6 +94,8 @@ int main()
 
 不合法，因为 << 运算符左侧的运算对象必须是一个`ostream`对象。每行都用分号分开，每行都是新语句。最后两行显然不满足条件。
 
+修改办法是去掉前两个分号。
+
 ## 1.3节练习
 
 ### 1.7（编码）
@@ -111,7 +113,7 @@ int main(){
 g++ 9.3.0 报错信息
 
 ```bash
-expected unqualified-id before ‘/’ token
+error: expected unqualified-id before ‘/’ token
 ```
 
 ### 1.8（判断）
@@ -125,7 +127,7 @@ std::cout<</* "*/" */<<std::endl;
 std::cout<</* "*/" /* "/*" */<<std::endl;
 ```
 
-1和2毫无疑问的合法。
+1和2毫无疑问的合法。输出字符串。
 
 3 中，前一对`/**/`作为注释，将一个`"`注释掉了。剩下`" */`，显然是非法的，如果在`" */`后再加一个`"`就合法了。
 
@@ -271,7 +273,87 @@ while循环的变化部分在循环体中，适合没有明确结束要求的循
 
 >故意犯错，观察相应的编译器错误信息
 
-实际工作中要避免
+- 错误1
+
+    ```cpp
+    int main(
+    {
+        return 0;
+    }
+    ```
+
+    **报错信息**
+
+- 错误2
+
+    ```cpp
+    #include <iostream>
+    int main()
+    {
+        std::cout<<"Read each file."<<std::endl:
+        return 0;
+    }
+    ```
+
+- 错误3
+
+    ```cpp
+    #include <iostream>
+    int main()
+    {
+        std::cout<<Update master.<<std::endl;
+        return 0;
+    }
+
+    ```
+
+- 错误4
+
+    ```cpp
+    #include <iostream>
+    int main()
+    {
+        std::cout<<"Write new master." std::endl;
+        return 0;
+    }
+    ```
+
+- 错误5
+
+    ```cpp
+    int main()
+    {
+        return 0
+    }
+    ```
+
+- 错误6
+
+    ```cpp
+    int main()
+    {
+        int num="Hello";
+        return 0;
+    }
+    ```
+
+- 错误7
+
+    ```cpp
+    #include <iostream>
+    int main()
+    {
+        int v1 = 0, v2 = 0;
+        std::cin >> v >> v2;
+        cout << v1 + v2 << std::endl;
+        return 0;
+    }
+    ```
+
+    **报错信息**
+
+    ```bash
+    ```
 
 ## 1.4.3节练习
 
